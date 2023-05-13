@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Management</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+<div layout:fragment="content1">
+<div class="container">
+    <form class="col s12" method="get" th:action="@{/update(keyword=${keyword}, page=${page})}">
+        <h5>Update Patient</h5>
+        <h1 th:text="${keyword}"></h1>
+        <h1 th:text="${page}"></h1>
+      <pre>
+          <h6>ID : </h6><span class="badge yellow large left" th:text="${patient.id}"></span>
+      </pre>
+
+
+        <input id="icon_prefix2" type="hidden" class="validate" name="id" th:value="${patient.id}">
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix1" type="text" class="validate" name="name" th:value="${patient.name}">
+                <span style="color: red" th:errors="${patient.name}"></span>
+                <label for="icon_prefix">Name</label>
+            </div>
+            <div class="input-field col s6">
+                <div>
+                    <p>
+                        <label>
+                            <input type="checkbox" name="malade" class="filled-in" th:checked="${patient.malade}"/>
+                            <span>Malade</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_telephone" type="date" class="validate" name="birthDate" th:value="${patient.birthDate}">
+                <span th:errors="${patient.birthDate}"></span>
+                <label for="icon_telephone">Birth date</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate" name="score" th:value="${patient.score}">
+                <span style="color: red" th:errors="${patient.score}"></span>
+                <label for="icon_prefix">Score</label>
+            </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Update
+            <i class="material-icons right">send</i>
+        </button>
+
+    </form>
+</div>
+</div>
+</body>
+</html>

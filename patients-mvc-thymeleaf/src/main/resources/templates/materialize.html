@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Management</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+<div layout:fragment="content1">
+<div class="container">
+    <div class="row">
+            <div class="card">
+                <span class="card-title col s12">
+                    <h5>All Patients</h5>
+                </span>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12" method="get" th:action="@{index}">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="icon_prefix" type="text" class="validate" name="keyword" th:value="${keyword}">
+                                    <label for="icon_prefix">Patient Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <button class="btn-flat btn-large" type="submit">
+                                        <i class="material-icons dark-text">search</i>
+                                    </button>
+                                </div>
+
+                        </form>
+                    </div>
+                    <a class="waves-effect waves-light btn-small" th:href="@{/addPatient}">Add</a>
+                    <table class="table-responsive striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Birth Date</th>
+                            <th>Malade</th>
+                            <th>Score</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="p:${patientsList}">
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.name}"></td>
+                            <td th:text="${p.birthDate}"></td>
+                            <td th:text="${p.malade}"></td>
+                            <td th:text="${p.score}"></td>
+                            <td>
+                                <a onclick="return confirm('Are you sure ?')" class="btn-flat btn-meduim" th:href="@{delete(id=${p.id},keyword=${keyword},page=${currentPage})}">
+                                    <i class="material-icons red-text">delete</i>
+                                </a>
+                                <a onclick="return confirm('Are you sure ?')" class="btn-flat btn-meduim" th:href="@{updatePatient(id=${p.id},keyword=${keyword},page=${currentPage})}">
+                                    <i class="material-icons green-text">autorenew</i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                        <li th:each="key, value:${pages}"  th:class="${value.index == currentPage ? 'active' : 'waves-effect'}">
+                            <a th:text="${value.index}+1" th:href="@{index(page=${value.index}, keyword=${keyword})}"></a>
+                        </li>
+                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+</div>
+</div>
+</body>
+</html>
